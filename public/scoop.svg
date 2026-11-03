@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 305" role="img" aria-label="Stylized strawberry ice cream scoop">
+  <defs>
+    <linearGradient id="scoopFill" x1="0" y1="0" x2="0.8" y2="1">
+      <stop offset="0%" stop-color="#FFE3DC"/>
+      <stop offset="100%" stop-color="#F2BDB9"/>
+    </linearGradient>
+  </defs>
+  <path d="M50 201 C25 175 38 145 53 135 C57 66 109 22 169 22 C229 22 283 68 287 135 C307 152 313 180 288 202 C291 231 261 240 240 225 C218 248 190 244 171 229 C151 247 119 247 100 226 C74 242 46 229 50 201Z" fill="url(#scoopFill)" stroke="#F7D6CE" stroke-width="3"/>
+  <ellipse cx="125" cy="83" rx="37" ry="17" transform="rotate(-30 125 83)" fill="#FFF0EB" opacity="0.55"/>
+</svg>

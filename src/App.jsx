@@ -1,13 +1,14 @@
+
 import { useEffect, useState } from 'react';
 
 // Example flavor descriptions for the student concept — not a live inventory feed.
 const sampleFlavors = [
-  { name: 'Strawberry Dream', note: 'Bright, fruity, and nostalgic', emoji: '🍓', type: 'Dairy', tone: 'strawberry' },
-  { name: 'Purple Ube', note: 'Sweet, mellow, and colorful', emoji: '🍠', type: 'Dairy', tone: 'ube' },
-  { name: 'Tropical Mango', note: 'Sunny tropical inspiration', emoji: '🥭', type: 'Vegan concept', tone: 'mango' },
-  { name: 'Coconut Cloud', note: 'Smooth coconut inspiration', emoji: '🥥', type: 'Vegan concept', tone: 'coconut' },
-  { name: 'Black Sesame', note: 'Nutty, toasted inspiration', emoji: '⚫', type: 'Dairy', tone: 'sesame' },
-  { name: 'Pistachio Garden', note: 'Rich, creamy, and nutty', emoji: '🌿', type: 'Dairy', tone: 'pistachio' },
+  { name: 'Strawberry Dream', note: 'Bright, fruity, and nostalgic', image: '/images/flavors/StrawberryDream.jpg', type: 'Dairy', tone: 'strawberry' },
+  { name: 'Purple Ube', note: 'Sweet, mellow, and colorful', image: '/images/flavors/PurpleUbe.jpg', type: 'Dairy', tone: 'ube' },
+  { name: 'Tropical Mango', note: 'Sunny tropical inspiration', image: '/images/flavors/TropicalMango.jpg', type: 'Vegan concept', tone: 'mango' },
+  { name: 'Coconut Cloud', note: 'Smooth coconut inspiration', image: '/images/flavors/CoconutCloud.jpg', type: 'Vegan concept', tone: 'coconut' },
+  { name: 'Black Sesame', note: 'Nutty, toasted inspiration', image: '/images/flavors/BlackSesame.jpg', type: 'Dairy', tone: 'sesame' },
+  { name: 'Pistachio Garden', note: 'Rich, creamy, and nutty', image: '/images/flavors/PistachioGarden.jpg', type: 'Dairy', tone: 'pistachio' },
 ];
 
 const NAV = [
@@ -39,20 +40,68 @@ function useRevealOnScroll(dependency) {
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <header className="site-header">
       <div className="header-inner container">
-        <a className="brand" href="#home" onClick={() => setMenuOpen(false)} aria-label="Garden Creamery, home">
-          <span className="brand-icon" aria-hidden="true">✳</span> GARDEN<span>CREAMERY</span>
+
+        {/* Garden Creamery Logo */}
+        <a
+          className="brand"
+          href="#home"
+          onClick={() => setMenuOpen(false)}
+          aria-label="Garden Creamery, home"
+        >
+          <img
+            src="/ice-cream-truck-hero.png"
+            alt=""
+            className="brand-logo"
+          />
         </a>
-        <button className="menu-toggle" type="button" aria-expanded={menuOpen} aria-controls="primary-navigation" onClick={() => setMenuOpen(!menuOpen)}>
-          <span className="sr-only">{menuOpen ? 'Close navigation' : 'Open navigation'}</span>
-          <span aria-hidden="true">{menuOpen ? '✕' : '☰'}</span>
+
+        {/* Mobile Navigation Toggle */}
+        <button
+          className="menu-toggle"
+          type="button"
+          aria-expanded={menuOpen}
+          aria-controls="primary-navigation"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          <span className="sr-only">
+            {menuOpen ? "Close navigation" : "Open navigation"}
+          </span>
+          <span aria-hidden="true">
+            {menuOpen ? "✕" : "☰"}
+          </span>
         </button>
-        <nav id="primary-navigation" className={`nav ${menuOpen ? 'nav-open' : ''}`} aria-label="Main navigation">
-          {NAV.map(({ id, label }) => <a key={id} href={`#${id}`} onClick={() => setMenuOpen(false)}>{label}</a>)}
-          <a className="nav-cta" href="https://gardencreamery.com/locations/" target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)}>Shop details ↗</a>
+
+        {/* Primary Navigation */}
+        <nav
+          id="primary-navigation"
+          className={`nav ${menuOpen ? 'nav-open' : ''}`}
+          aria-label="Main navigation"
+        >
+          {NAV.map(({ id, label }) => (
+            <a
+              key={id}
+              href={`#${id}`}
+              onClick={() => setMenuOpen(false)}
+            >
+              {label}
+            </a>
+          ))}
+
+          <a
+            className="nav-cta"
+            href="https://gardencreamery.com/locations/"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setMenuOpen(false)}
+          >
+            Shop details ↗
+          </a>
         </nav>
+
       </div>
     </header>
   );
@@ -61,7 +110,15 @@ function Header() {
 function FlavorCard({ flavor }) {
   return (
     <article className={`flavor-card ${flavor.tone}`} data-reveal>
-      <div className="flavor-art" aria-hidden="true"><span>{flavor.emoji}</span></div>
+      <div className="flavor-art">
+        <img
+          className="flavor-image"
+          src={flavor.image}
+          alt={`${flavor.name} ice cream inspiration in a bowl`}
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
       <div className="flavor-copy">
         <span className="flavor-tag">{flavor.type}</span>
         <h3>{flavor.name}</h3>
@@ -69,6 +126,55 @@ function FlavorCard({ flavor }) {
       </div>
     </article>
   );
+}
+
+// Floating ice cream scoop image with changing messages.
+// Uses the existing image from public/scoop.svg.
+function RotatingFeature() {
+  const messages = [
+    'SMALL BATCH, BIG JOY',
+    'SCOOP INTO HAPPINESS',
+    'DISCOVER NEW FLAVORS',
+    'SWEET LITTLE ADVENTURES'
+  ];
+
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    if (motionPreference.matches) return;
+
+    const interval = window.setInterval(() => {
+      setIndex((current) => (current + 1) % messages.length);
+    }, 3500);
+
+    return () => window.clearInterval(interval);
+  }, []);
+
+  
+return (
+  <div className="rotating-feature">
+    <div className="rotating-feature-circle">
+      <img
+        src="/scoop.svg"
+        alt="Garden Creamery ice cream scoop"
+        className={`animated-ice-cream scoop-color-${index}`}
+        style={{
+          display: 'block',
+          width: 'min(100%, 260px)',
+          height: 'auto',
+          objectFit: 'contain',
+          margin: '0 auto'
+        }}
+      />
+      <p key={index} className="rotating-feature-text">
+        {messages[index]}
+      </p>
+    </div>
+  </div>
+);
+
 }
 
 export default function App() {
@@ -90,7 +196,7 @@ export default function App() {
               <div className="button-row"><a href="#flavors" className="button button-dark">Explore flavors <span aria-hidden="true">↗</span></a><a href="#visit" className="text-link">Plan your visit →</a></div>
             </div>
             <div className="hero-photo-wrap" data-reveal>
-              <img className="hero-photo" src="/ice-cream-hero.png" alt="Illustrative colorful scoops of ice cream on cones against a pink backdrop" />
+              <img className="hero-photo" src="/ice-cream-truck-hero.png" alt="Garden Creamery illustrated ice cream truck logo" />
               <span className="photo-sticker">a scoop of happiness ✳</span>
             </div>
           </div>
@@ -111,7 +217,9 @@ export default function App() {
 
         <section id="story" className="story-section">
           <div className="container story-grid">
-            <div className="story-art" data-reveal><span className="story-asterisk" aria-hidden="true">✳</span><span className="story-floating">HANDCRAFTED<br />HAPPINESS</span></div>
+            <div className="story-art" data-reveal>
+              <RotatingFeature />
+            </div>
             <div className="story-copy" data-reveal><p className="eyebrow">OUR LITTLE CORNER OF JOY</p><h2>Thoughtful scoops. <em>Memorable moments.</em></h2><p>Garden Creamery is known for small-batch ice cream, creative flavor combinations, and dairy and vegan offerings. This student website concept makes those details easier to discover.</p><a className="button button-white" href="https://gardencreamery.com/" target="_blank" rel="noopener noreferrer">Meet the real Garden Creamery ↗</a></div>
           </div>
         </section>
