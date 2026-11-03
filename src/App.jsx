@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 
 // Example flavor descriptions for the student concept — not a live inventory feed.
@@ -92,14 +91,12 @@ function Header() {
           ))}
 
           <a
-            className="nav-cta"
-            href="https://gardencreamery.com/locations/"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => setMenuOpen(false)}
-          >
-            Shop details ↗
-          </a>
+  className="nav-cta"
+  href="#visit"
+  onClick={() => setMenuOpen(false)}
+>
+  Shop details
+</a>
         </nav>
 
       </div>
@@ -129,7 +126,7 @@ function FlavorCard({ flavor }) {
 }
 
 // Floating ice cream scoop image with changing messages.
-// Uses the existing image from public/scoop.svg.
+// Uses the existing public/scoop.svg image.
 function RotatingFeature() {
   const messages = [
     'SMALL BATCH, BIG JOY',
@@ -197,7 +194,10 @@ export default function App() {
             </div>
             <div className="hero-photo-wrap" data-reveal>
               <img className="hero-photo" src="/ice-cream-truck-hero.png" alt="Garden Creamery illustrated ice cream truck logo" />
-              <span className="photo-sticker">a scoop of happiness ✳</span>
+
+<span className="photo-sticker">
+  🍦 SCOOP INTO HAPPINESS
+</span>
             </div>
           </div>
           <div className="hero-ticker" aria-hidden="true"><span>MADE WITH LOVE ✳ MADE FOR DISCOVERY ✳ MADE TO SHARE ✳ MADE WITH LOVE ✳ MADE FOR DISCOVERY ✳</span></div>
@@ -206,7 +206,7 @@ export default function App() {
         <section id="flavors" className="section flavors-section container">
           <div className="section-head" data-reveal>
             <div><p className="eyebrow">THE FUN PART</p><h2>Find your <em>flavor.</em></h2></div>
-            <p>Start with these illustrative flavor ideas. Check Garden Creamery’s official channels for the actual rotating scoop menu.</p>
+            <p>Start with these illustrative flavor ideas. These flavors are illustrative concepts, not a live menu.</p>
           </div>
           <div className="filter-row" role="group" aria-label="Filter example flavors">
             {['All', 'Dairy', 'Vegan concept'].map((option) => <button key={option} type="button" className={`filter-pill ${filter === option ? 'active' : ''}`} aria-pressed={filter === option} onClick={() => setFilter(option)}>{option === 'All' ? 'All flavors' : option === 'Dairy' ? 'Dairy examples' : 'Vegan examples'}</button>)}
@@ -220,16 +220,38 @@ export default function App() {
             <div className="story-art" data-reveal>
               <RotatingFeature />
             </div>
-            <div className="story-copy" data-reveal><p className="eyebrow">OUR LITTLE CORNER OF JOY</p><h2>Thoughtful scoops. <em>Memorable moments.</em></h2><p>Garden Creamery is known for small-batch ice cream, creative flavor combinations, and dairy and vegan offerings. This student website concept makes those details easier to discover.</p><a className="button button-white" href="https://gardencreamery.com/" target="_blank" rel="noopener noreferrer">Meet the real Garden Creamery ↗</a></div>
+            <div className="story-copy" data-reveal><p className="eyebrow">OUR LITTLE CORNER OF JOY</p><h2>Thoughtful scoops. <em>Memorable moments.</em></h2><p>Garden Creamery is known for small-batch ice cream, creative flavor combinations, and dairy and vegan offerings. This student website concept makes those details easier to discover.</p><a className="button button-white" href="#flavors">Explore flavor ideas ↗</a></div>
           </div>
         </section>
 
         <section id="visit" className="section visit-section container">
-          <div className="visit-copy" data-reveal><p className="eyebrow">COME SAY HELLO</p><h2>See you at <em>the scoop shop.</em></h2><p>Find Garden Creamery in the Mission District of San Francisco. Check their official page for current hours, flavor announcements, and updates before heading over.</p><address>3566 20th Street<br />San Francisco, CA 94110</address><div className="button-row"><a className="button button-dark" href="https://www.google.com/maps/search/?api=1&query=3566+20th+Street+San+Francisco+CA+94110" target="_blank" rel="noopener noreferrer">Get directions ↗</a><a className="text-link" href="https://gardencreamery.com/locations/" target="_blank" rel="noopener noreferrer">Check current hours ↗</a></div></div>
+          <div className="visit-copy" data-reveal><p className="eyebrow">COME SAY HELLO</p><h2>See you at <em>the scoop shop.</em></h2><p>Garden Creamery is located in San Francisco’s Mission District. This student concept shares its location without providing live hours or directions.</p><address>3566 20th Street<br />San Francisco, CA 94110</address><p className="note">Hours and directions are not available in this student concept.</p></div>
           <div className="visit-card" data-reveal><span className="visit-large" aria-hidden="true">🍦</span><p className="visit-script">good things come to those who scoop</p><div className="visit-card-bottom">SAN FRANCISCO <span>✳</span> CALIFORNIA</div></div>
         </section>
       </main>
-      <footer className="footer"><div className="container footer-inner"><span className="footer-brand">GARDEN CREAMERY ✳</span><p>Unofficial student design concept for an interaction-design portfolio. Not affiliated with or operated by Garden Creamery.</p><a href="#home">Back to top ↑</a></div></footer>
+
+<footer className="footer">
+  <div className="container footer-inner">
+    <a
+      href="#home"
+      className="footer-logo-link"
+      aria-label="Garden Creamery — Back to home"
+    >
+      <img
+        src="/ice-cream-truck-hero.png"
+        alt="Garden Creamery logo"
+        className="footer-logo"
+      />
+    </a>
+
+    <p>
+      Unofficial student design concept for an interaction-design
+      portfolio. Not affiliated with or operated by Garden Creamery.
+    </p>
+
+    <a href="#home">Back to top ↑</a>
+  </div>
+</footer>
     </>
   );
 }
